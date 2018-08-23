@@ -1,0 +1,53 @@
+<div class="card" *ngIf="user; else userNotFound">
+  <div class="card-body">
+    <h6 class="card-subtitle mb-2" [ngClass]="user.is_active ? 'text-success' : 'text-danger'">
+      {{user.is_active ? 'Активен' : 'Не активен'}}
+    </h6>
+    <div class="row">
+      <div class="col-4 col-md-3">
+        <h5 class="card-title mb-0">Имя:</h5>
+      </div>
+      <div class="col-8 col-md-9">
+        <h5 class="card-title mb-0">{{user.first_name}}</h5>
+      </div>
+
+      <div class="col-4 col-md-3">
+        <h5 class="card-title mb-0">Фамилия:</h5>
+      </div>
+      <div class="col-8 col-md-9">
+        <h5 class="card-title mb-0">{{user.last_name}}</h5>
+      </div>
+
+      <div class="col-4 col-md-3">
+        <h5 class="card-title mb-0">Дата рождения:</h5>
+      </div>
+      <div class="col-8 col-md-9">
+        <h5 class="card-title mb-0">{{user.birth_date}}</h5>
+      </div>
+
+      <div class="col-4 col-md-3">
+        <h5 class="card-title mb-0">Пол:</h5>
+      </div>
+      <div class="col-8 col-md-9">
+        <h5 class="card-title mb-0">{{user.gender}}</h5>
+      </div>
+
+      <div class="col-4 col-md-3">
+          <h5 class="card-title mb-0">Профессия:</h5>
+        </div>
+        <div class="col-8 col-md-9">
+          <h5 class="card-title mb-0">{{user.job}}</h5>
+        </div>
+    </div>
+
+    <div>
+       <h5 class="card-title mb-0">Биография:</h5>
+      <p>{{user.biography}}</p>
+    </div>
+  </div>
+</div>
+<ng-template #userNotFound>
+  <h5 class="text-center">
+    User not found
+  </h5>
+</ng-template>
