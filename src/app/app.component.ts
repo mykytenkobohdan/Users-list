@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from './app.service';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private service: AppService, private toastr: ToastrService) { }
+  constructor(private service: AppService, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.service.onRemove
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     this.service.removeUser(id)
       .subscribe(() => {
         this.toastr.success('Пользователь удален!');
+        this.router.navigate(['/']);
       }, err => {
         console.log(err);
         this.toastr.error(err.message);

@@ -31,8 +31,4 @@ export class AboutUserComponent implements OnInit {
   public remove(id) {
     this.service.remove(id);
   }
-
-  public edit(id) {
-    console.log('Edit ', id);
-  }
 }

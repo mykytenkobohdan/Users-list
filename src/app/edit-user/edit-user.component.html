@@ -1,0 +1,23 @@
+<div>
+  <form [formGroup]="userForm" (submit)="send()">
+    <mat-form-field class="w-100">
+      <input required matInput placeholder="Имя" formControlName="first_name">
+      <mat-error></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100">
+      <input required matInput placeholder="Фамилия" formControlName="last_name">
+      <mat-error></mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="birth_date" placeholder="Дата рождения">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="text-center">
+      <button class="btn btn-info">Сохранить</button>
+    </div>
+  </form>
+</div>

@@ -50,13 +50,13 @@
         <button (click)="remove(user.id)" class="btn btn-sm btn-danger">Удалить пользователя</button>
       </div>
       <div class="col-6">
-        <button (click)="edit(user.id)" class="btn btn-sm btn-info">Изменить пользователя</button>
+        <button [routerLink]="['/edit', user.id]" class="btn btn-sm btn-info">Изменить пользователя</button>
       </div>
     </div>
   </div>
 </div>
 <ng-template #userNotFound>
   <h5 class="text-center">
-    User not found
+    Пользователь не найден
   </h5>
 </ng-template>

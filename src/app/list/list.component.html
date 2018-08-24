@@ -2,7 +2,7 @@
   <div class="card mb-2" *ngFor="let user of users">
     <div class="card-body">
       <h5 class="card-title">
-        <a [routerLink]="['/about-user', user.id]">{{user.first_name}} {{user.last_name}}</a>
+        <a [routerLink]="['/user', user.id]">{{user.first_name}} {{user.last_name}}</a>
       </h5>
       <h6 class="card-subtitle mb-2 text-muted">Дата рождения: {{user.birth_date}}</h6>
       <h6 class="card-subtitle mb-2 text-muted">Пол: {{user.gender}}</h6>
