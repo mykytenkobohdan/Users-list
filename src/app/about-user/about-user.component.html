@@ -33,16 +33,25 @@
       </div>
 
       <div class="col-4 col-md-3">
-          <h5 class="card-title mb-0">Профессия:</h5>
-        </div>
-        <div class="col-8 col-md-9">
-          <h5 class="card-title mb-0">{{user.job}}</h5>
-        </div>
+        <h5 class="card-title mb-0">Профессия:</h5>
+      </div>
+      <div class="col-8 col-md-9">
+        <h5 class="card-title mb-0">{{user.job}}</h5>
+      </div>
     </div>
 
     <div>
-       <h5 class="card-title mb-0">Биография:</h5>
+      <h5 class="card-title mb-0">Биография:</h5>
       <p>{{user.biography}}</p>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        <button (click)="remove(user.id)" class="btn btn-sm btn-danger">Удалить пользователя</button>
+      </div>
+      <div class="col-6">
+        <button (click)="edit(user.id)" class="btn btn-sm btn-info">Изменить пользователя</button>
+      </div>
     </div>
   </div>
 </div>

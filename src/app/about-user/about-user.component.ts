@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
 import { User } from '../user.model';
 
@@ -11,7 +12,7 @@ import { User } from '../user.model';
 export class AboutUserComponent implements OnInit {
   public user: User;
 
-  constructor(private route: ActivatedRoute, private service: AppService) { }
+  constructor(private route: ActivatedRoute, private service: AppService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -27,4 +28,11 @@ export class AboutUserComponent implements OnInit {
       }, err => console.log(err));
   }
 
+  public remove(id) {
+    this.service.remove(id);
+  }
+
+  public edit(id) {
+    console.log('Edit ', id);
+  }
 }

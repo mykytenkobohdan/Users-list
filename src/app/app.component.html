@@ -1,9 +1,11 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<nav class="navbar navbar-light bg-primary mb-3">
+<div>
+  <nav class="navbar navbar-light bg-info mb-3">
+    <div class="container">
+      <a class="text-white" [routerLink]="['/']">Список пользователей</a>
+    </div>
+  </nav>
   <div class="container">
-    <a class="text-white" [routerLink]="['/']">Список пользователей</a>
+    <router-outlet></router-outlet>
   </div>
-</nav>
-<div class="container">
-  <router-outlet></router-outlet>
 </div>

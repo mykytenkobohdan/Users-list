@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppService {
+  public onRemove = new Subject<number>();
   private url = 'http://frontend-candidate.dev.sdh.com.ua/v1/contact/';
 
   constructor(private http: HttpClient) { }
@@ -15,6 +17,10 @@ export class AppService {
 
   getUser(userId) {
     return this.http.get(`${this.url}${userId}`);
+  }
+
+  remove(id: number) {
+    this.onRemove.next(id);
   }
 
   removeUser(userId) {

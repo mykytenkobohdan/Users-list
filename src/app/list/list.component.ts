@@ -24,9 +24,6 @@ export class ListComponent implements OnInit {
   }
 
   public remove(id) {
-    this.service.removeUser(id)
-      .subscribe(() => {
-        console.log('User removed!');
-      }, err => console.log(err));
+    this.service.remove(id);
   }
 }
