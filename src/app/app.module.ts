@@ -3,7 +3,14 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material';
+import {
+  MatFormFieldModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSelectModule,
+  MatCheckboxModule
+} from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
@@ -30,11 +37,12 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    MatCheckboxModule,
     ToastrModule.forRoot({ positionClass: 'toast-top-center' })
   ],
   providers: [
-    AppService,
-    // { provide: MAT_DATE_FORMATS, useValue: {} },
+    AppService
   ],
   bootstrap: [AppComponent]
 })

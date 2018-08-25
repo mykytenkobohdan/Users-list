@@ -29,7 +29,10 @@
         <h5 class="card-title mb-0">Пол:</h5>
       </div>
       <div class="col-8 col-md-9">
-        <h5 class="card-title mb-0">{{user.gender}}</h5>
+        <h5 class="card-title mb-0">
+          <span *ngIf="user.gender === 'male'">Мужской</span>
+          <span *ngIf="user.gender === 'female'">Женский</span>
+        </h5>
       </div>
 
       <div class="col-4 col-md-3">

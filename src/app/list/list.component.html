@@ -1,11 +1,18 @@
 <div>
+  <div class="mb-3">
+      <button class="btn btn-sm btn-primary" [routerLink]="['/create']">Добавить нового</button>
+  </div>
   <div class="card mb-2" *ngFor="let user of users">
     <div class="card-body">
       <h5 class="card-title">
         <a [routerLink]="['/user', user.id]">{{user.first_name}} {{user.last_name}}</a>
       </h5>
       <h6 class="card-subtitle mb-2 text-muted">Дата рождения: {{user.birth_date}}</h6>
-      <h6 class="card-subtitle mb-2 text-muted">Пол: {{user.gender}}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">
+        Пол:
+        <span *ngIf="user.gender === 'male'">Мужской</span>
+        <span *ngIf="user.gender === 'female'">Женский</span>
+      </h6>
       <button (click)="remove(user.id)" class="btn btn-sm btn-danger">Удалить пользователя</button>
     </div>
   </div>

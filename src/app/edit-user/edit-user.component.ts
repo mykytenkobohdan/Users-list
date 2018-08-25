@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { AppService } from '../app.service';
 import { User } from '../user.model';
@@ -46,7 +47,8 @@ export class EditUserComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private service: AppService
+    private service: AppService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -61,7 +63,7 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  formInit(user: User) {
+  private formInit(user: User) {
     this.userForm = this.fb.group({
       first_name: [user.first_name, [Validators.required, Validators.maxLength(256)]],
       last_name: [user.last_name, [Validators.required, Validators.maxLength(256)]],
@@ -73,16 +75,65 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  getUser(id) {
+  private getUser(id) {
     this.service.getUser(id)
       .subscribe((user: User) => {
-        console.log('Edit: ', user);
         this.user = user;
         this.formInit(user);
-      }, err => console.log(err));
+      }, err => this.toastr.error(err.message));
   }
 
-  send() {
-    console.log(this.userForm);
+  public validatorMessages(field) {
+    if (!field || !field.errors) {
+      return false;
+    }
+
+    const errors = [];
+    const config = {
+      required: 'Поле обязательно для заполнения',
+      requiredTrue: 'Value should be positive'
+    };
+
+    if (field.errors.hasOwnProperty('minlength')) {
+      config['minlength'] = `Минимальное количество символов ${field.errors.minlength.requiredLength}`;
+    }
+
+    if (field.errors.hasOwnProperty('maxlength')) {
+      config['maxlength'] = `Максимальное количество символов ${field.errors.maxlength.requiredLength}`;
+    }
+
+    if (field.errors.hasOwnProperty('matDatepickerMax') || field.errors.hasOwnProperty('matDatepickerMin')) {
+      config['matDatepickerMax'] = `Введите корректную дату`;
+      config['matDatepickerMin'] = `Введите корректную дату`;
+    }
+
+    Object.keys(field.errors).forEach((error: string) => {
+      errors.push(config[error]);
+    });
+
+    return errors;
+  }
+
+  public send() {
+    if (this.userForm.invalid) {
+      return;
+    }
+
+    const data = Object.assign(this.userForm.value);
+    data.birth_date = moment(this.userForm.value.birth_date).format('YYYY-MM-DD');
+
+    if (this.isNewUser) {
+      this.service.createUser(data)
+        .subscribe((user: User) => {
+          this.toastr.success(`Пользователь ${user.first_name} ${user.last_name} создан!`);
+          this.router.navigate(['']);
+        }, err => this.toastr.error(err.message));
+    } else {
+      this.service.updateUser(this.user.id, data)
+        .subscribe((user: User) => {
+          this.toastr.success(`Пользователь ${user.first_name} ${user.last_name} обновлен!`);
+          this.router.navigate(['user', user.id]);
+        }, err => this.toastr.error(err.message));
+    }
   }
 }

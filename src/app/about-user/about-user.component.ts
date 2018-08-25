@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from '../app.service';
 import { User } from '../user.model';
@@ -12,7 +12,12 @@ import { User } from '../user.model';
 export class AboutUserComponent implements OnInit {
   public user: User;
 
-  constructor(private route: ActivatedRoute, private service: AppService, private toastr: ToastrService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private service: AppService,
+    private toastr: ToastrService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -23,12 +28,15 @@ export class AboutUserComponent implements OnInit {
   getUser(id) {
     this.service.getUser(id)
       .subscribe((user: User) => {
-        console.log(user);
         this.user = user;
-      }, err => console.log(err));
+      }, err => this.toastr.error(err.message));
   }
 
   public remove(id) {
-    this.service.remove(id);
+    this.service.removeUser(id)
+      .subscribe(() => {
+        this.toastr.success('Пользователь удален!');
+        this.router.navigate(['/']);
+      }, err => this.toastr.error(err.message));
   }
 }
