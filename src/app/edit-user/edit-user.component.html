@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="isFoundUser; else notFound">
   <form [formGroup]="userForm" (submit)="send()">
     <mat-form-field class="w-100">
       <input required matInput placeholder="Имя" formControlName="first_name">
@@ -44,7 +44,7 @@
 
     <mat-form-field class="w-100">
       <textarea required matInput placeholder="Биография" formControlName="biography"></textarea>
-      <mat-error>{{validatorMessages(userForm.get('biography'))}}</mat-error>      
+      <mat-error>{{validatorMessages(userForm.get('biography'))}}</mat-error>
     </mat-form-field>
 
     <div class="text-center">
@@ -52,3 +52,6 @@
     </div>
   </form>
 </div>
+<ng-template #notFound>
+  <h2 class="text-center text-danger">Пользователь не найден!</h2>
+</ng-template>

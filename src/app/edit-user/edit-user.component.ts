@@ -40,6 +40,7 @@ export class EditUserComponent implements OnInit {
   };
   public userForm: FormGroup;
   public isNewUser = true;
+  public isFoundUser = true;
   minDate = moment().subtract(100, 'years');
   maxDate = moment().subtract(5, 'years');
 
@@ -80,7 +81,11 @@ export class EditUserComponent implements OnInit {
       .subscribe((user: User) => {
         this.user = user;
         this.formInit(user);
-      }, err => this.toastr.error(err.message));
+      }, err => {
+        this.toastr.error(err.message);
+        this.isFoundUser = false;
+        console.log('User not found!');
+      });
   }
 
   public validatorMessages(field) {
